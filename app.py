@@ -25,16 +25,14 @@ def generate_board():
   query = f'''
     I'm making a project titled "{title}" with the description "{description}". Create me a {detail_level} storyboard with cards describing what needs to be done to complete the entire project from beggining to end in the following JSON format: 
   {{
-  {{
-  "sprint_title" : "Sprint title with high-level overview",
-  "generated_cards": [ 
+  "Sprint title with high-level overview": [ 
   {{
   "title": "briefly describes the story item", 
   "description": "gives more detail if more context is needed", 
   "story_points" "points based on complexity which are in the {story_point_type} format ({story_points})", 
+  "assigned": ["leave this empty"] 
   }},
   ]
-  }},
   }}, 
   '''
 
@@ -48,6 +46,7 @@ def generate_board():
     ],
     response_format={ "type": "json_object" }
   )
+  # print(response)
 
   if response.choices[0].finish_reason == "stop":
     results = response.choices[0].message.content

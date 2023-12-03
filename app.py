@@ -55,10 +55,43 @@ def generate_board():
     result = response.choices[0].finish_reason
     return jsonify({"message": result})
 
-# @app.post("/api/generate/stack")
-# def generate_stack():
-#   return jsonify({"hello": "world"})
+@app.post("/api/generate/card")
+def generate_card():
+  if not request.is_json:
+    return jsonify({"message": "Request body must be JSON"}), 400
+  json_data = request.get_json()
+  title=json_data.get('title')
+  description=json_data.get('description')
+  board=json_data.get('board')
+  stack_id = json_data.get('stack_id')
 
-# @app.post("/api/generate/card")
-# def generate_card():
-#   return jsonify({"hello": "world"})
+  query = f'''
+    I'm making a project titled "{title}" with the description "{description}". What should be the next card to add in the stack with the id "{stack_id}" ? Here are the current cards in the board:
+    "{board}"
+    
+    Give me a response in the following JSON format:
+    {{
+    "title": "briefly describes the story item", 
+    "description": "gives more detail if more context is needed", 
+    "story_points" "points based on complexity which are in the the same format as other cards", 
+    }},
+  '''
+
+  response = client.chat.completions.create(
+    model="gpt-3.5-turbo-1106",
+    messages=[
+        {
+            "role": "user",
+            "content": query,
+        },
+    ],
+    response_format={ "type": "json_object" }
+  )
+
+  if response.choices[0].finish_reason == "stop":
+    results = response.choices[0].message.content
+    parsed_result = json.loads(results)
+    return jsonify(parsed_result)
+  else:
+    result = response.choices[0].finish_reason
+    return jsonify({"message": result})    

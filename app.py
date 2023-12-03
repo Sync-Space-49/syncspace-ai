@@ -59,10 +59,10 @@ def generate_card():
   if not request.is_json:
     return jsonify({"message": "Request body must be JSON"}), 400
   json_data = request.get_json()
-  title=json_data.get('title')
-  description=json_data.get('description')
-  board=json_data.get('board')
   stack_id = json_data.get('stack_id')
+  board=json_data.get('board')
+  title = board.get('title')
+  description = board.get('description')
 
   query = f'''
     I'm making a project titled "{title}" with the description "{description}". What should be the next card to add in the stack with the id "{stack_id}" ? Here are the current cards in the board, make a new, unique card that fits in the board:

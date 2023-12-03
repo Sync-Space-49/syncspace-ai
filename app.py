@@ -30,7 +30,6 @@ def generate_board():
   "title": "briefly describes the story item", 
   "description": "gives more detail if more context is needed", 
   "story_points" "points based on complexity which are in the {story_point_type} format ({story_points})", 
-  "assigned": ["leave this empty"] 
   }},
   ]
   }}, 
@@ -66,9 +65,9 @@ def generate_card():
   stack_id = json_data.get('stack_id')
 
   query = f'''
-    I'm making a project titled "{title}" with the description "{description}". What should be the next card to add in the stack with the id "{stack_id}" ? Here are the current cards in the board:
+    I'm making a project titled "{title}" with the description "{description}". What should be the next card to add in the stack with the id "{stack_id}" ? Here are the current cards in the board, make a new, unique card that fits in the board:
     "{board}"
-    
+
     Give me a response in the following JSON format:
     {{
     "title": "briefly describes the story item", 

@@ -44,10 +44,10 @@ options:
   substitutionOption: ALLOW_LOOSE
   logging: CLOUD_LOGGING_ONLY
 substitutions:
-  _TRIGGER_ID: 427bbf49-31dc-49d8-912d-0aaef9d1f41c
-  _DEPLOY_REGION: us-central1
-  _AR_HOSTNAME: us-central1-docker.pkg.dev
+  _DEPLOY_REGION: us-east1
+  _AR_HOSTNAME: us-east1-docker.pkg.dev
   _PLATFORM: managed
+  _TRIGGER_ID: abcfc02b-0ffe-4252-bf99-8814a1e9a083
   _SERVICE_NAME: syncspace-ai
 tags:
   - gcp-cloud-build-deploy-cloud-run

@@ -11,4 +11,4 @@ RUN pip3 install openai
 
 COPY . .
 
-CMD [ "python3", "-m", "flask", "run"]
+CMD [ "python3", "-m", "flask", "run", '-p', '39990']

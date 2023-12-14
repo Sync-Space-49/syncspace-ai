@@ -10,8 +10,8 @@ ENV FLASK_RUN_PORT $FLASK_RUN_PORT
 
 WORKDIR /python-docker
 
-RUN pip3 install -r requirements.txt
 
 COPY . .
 
+RUN pip3 install -r requirements.txt
 CMD [ "gunicorn", "app:app", "--timeout", "120", "--bind", "0.0.0.0:39990"]

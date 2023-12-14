@@ -11,4 +11,4 @@ RUN pip3 install gunicorn
 
 COPY . .
 
-CMD [ "gunicorn", "app:app", "--bind", "0.0.0.0:39990"]
+CMD [ "gunicorn", "app:app", "--timeout", "120", "--bind", "0.0.0.0:39990"]

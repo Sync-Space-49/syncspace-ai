@@ -35,6 +35,7 @@ def generate_board():
   }}, 
   '''
 
+  print("waiting for response")
   response = client.chat.completions.create(
     model="gpt-3.5-turbo-1106",
     messages=[
@@ -45,6 +46,8 @@ def generate_board():
     ],
     response_format={ "type": "json_object" }
   )
+  print("got response")
+  print(response.choices[0].message.content)
 
   if response.choices[0].finish_reason == "stop":
     results = response.choices[0].message.content

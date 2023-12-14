@@ -2,12 +2,15 @@
 
 FROM python:3.8-slim-buster
 
+ARG OPENAI_API_KEY
+ARG FLASK_RUN_PORT
+ENV OPENAI_API_KEY $OPENAI_API_KEY
+ENV FLASK_RUN_PORT $FLASK_RUN_PORT
+
+
 WORKDIR /python-docker
 
-RUN pip3 install flask
-RUN pip3 install python-dotenv
-RUN pip3 install openai
-RUN pip3 install gunicorn
+RUN pip3 install -r requirements.txt
 
 COPY . .
 

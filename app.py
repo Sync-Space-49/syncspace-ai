@@ -3,7 +3,6 @@ import json
 from dotenv import load_dotenv, find_dotenv
 from openai import OpenAI
 from flask import Flask, jsonify, request
-from flask_cors import CORS, cross_origin
 from httpx import Timeout
 
 ENV_FILE = find_dotenv()
@@ -15,15 +14,12 @@ client = OpenAI(
   timeout=Timeout(120.0, read=120.0, write=60.0, connect=60.0)
 )
 app = Flask(__name__)
-cors = CORS(app, support_credentials=True)
 
 @app.get("/")
-@cross_origin(support_credentials=True)
 def hello_world():
   return {"hello": "world"}
 
 @app.post("/api/generate/board")
-@cross_origin(support_credentials=True)
 def generate_board():
   title=request.form.get('title')
   description=request.form.get('description')
@@ -66,7 +62,6 @@ def generate_board():
     return jsonify({"message": result})
 
 @app.post("/api/generate/card")
-@cross_origin(support_credentials=True)
 def generate_card():
   if not request.is_json:
     return jsonify({"message": "Request body must be JSON"}), 400

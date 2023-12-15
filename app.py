@@ -3,13 +3,15 @@ import json
 from dotenv import load_dotenv, find_dotenv
 from openai import OpenAI
 from flask import Flask, jsonify, request
+from httpx import Timeout
 
 ENV_FILE = find_dotenv()
 if ENV_FILE:
     load_dotenv(ENV_FILE)
 
 client = OpenAI(
-  api_key=os.environ.get("OPENAI_API_KEY")
+  api_key=os.environ.get("OPENAI_API_KEY"),
+  timeout=Timeout(120.0, read=120.0, write=60.0, connect=60.0)
 )
 app = Flask(__name__)
 

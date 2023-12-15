@@ -14,4 +14,4 @@ WORKDIR /python-docker
 COPY . .
 
 RUN pip3 install -r requirements.txt
-CMD [ "gunicorn", "app:app", "--timeout", "120", "--bind", "0.0.0.0:39990"]
+CMD [ "gunicorn", "--worker-class", "gevent", "app:app", "--timeout", "120", "--bind", "0.0.0.0:39990"]

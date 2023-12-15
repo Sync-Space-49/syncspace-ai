@@ -1,3 +1,4 @@
+import os
 import json
 from dotenv import load_dotenv, find_dotenv
 from openai import OpenAI
@@ -7,7 +8,9 @@ ENV_FILE = find_dotenv()
 if ENV_FILE:
     load_dotenv(ENV_FILE)
 
-client = OpenAI()
+client = OpenAI(
+  api_key=os.environ.get("OPENAI_API_KEY")
+)
 app = Flask(__name__)
 
 @app.get("/")
@@ -47,7 +50,6 @@ def generate_board():
     response_format={ "type": "json_object" }
   )
   print("got response")
-  print(response.choices[0].message.content)
 
   if response.choices[0].finish_reason == "stop":
     results = response.choices[0].message.content
